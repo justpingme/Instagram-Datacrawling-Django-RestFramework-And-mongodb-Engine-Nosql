@@ -10,3 +10,44 @@ and build it’s database using the same method as used for pulling brand data. 
 At a time, there are 12 most recent posts per account that can be scraped, so do this scraping on these 12 posts only per brand.
 Influencer name, IG link, Bio, Email ID( if present In bio, make a simple rule
 using regex or something similar as *@*.[com,in,co,co.in]), followers, posts data( likes, comments, text, tagged array)
+
+
+# url for datacrawling app
+
+url = "datacrawling/"
+
+Django App name: datacrawling
+
+database: Nosql
+
+engine: mongoengine
+
+Database Schema(Document):
+
+    Brand (name, bio, Post)
+                        |
+      __________________|
+     | 
+     |
+    Post(message, tags[])
+                     |
+         ............|
+         |
+         |
+    Influencer(ig_link, bio, email_id, followers, post)
+                                                   |
+      _____________________________________________|
+     |
+     |
+    InfluencerPost(likes, message, tags[], Comment)
+                                                |
+       _________________________________________|
+      |
+      |
+    Comment (username, comment)
+     
+    
+
+
+
+
