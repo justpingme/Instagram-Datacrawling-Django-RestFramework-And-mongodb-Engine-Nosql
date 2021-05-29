@@ -47,21 +47,30 @@ Database Schema(Document):
     Comment (username, comment)
     
     
-        #Influencer user_name can be get from below any method
+#Influencer user_name can be get from below any method
 
-        But most of the time they teagged in text message only!
+But most of the time they teagged in text message only!
 
-        get influencer from text messages
-        tags = re.findall('@[\w\.-]+',message) // extract the text with @user_name
+get influencer from text messages
+tags = re.findall('@[\w\.-]+',message) // extract the text with @user_name
 
-        #OR
+#OR
 
-         get influencer from post tagged in
-         tags = []
-         for i in e['node']['edge_media_to_tagged_user']['edges']:
-              tags.append(i['node']['user']['username'])
+ get influencer from post tagged in
+ tags = []
+ for i in e['node']['edge_media_to_tagged_user']['edges']:
+      tags.append(i['node']['user']['username'])
           
           
+   biography = jsonData['graphql']['user']['biography']
+          
+   List of post we can get from this:
+   
+   e = jsonData['graphql']['user']['edge_owner_to_timeline_media']['edges']
+   
+   List of tags user_name:
+   
+   e['node']['edge_media_to_tagged_user']['edges']
           
           
           
