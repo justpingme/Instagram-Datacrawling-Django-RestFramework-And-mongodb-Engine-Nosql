@@ -71,9 +71,51 @@ tags = re.findall('@[\w\.-]+',message) // extract the text with @user_name
        List of tags user_name:
 
        e['node']['edge_media_to_tagged_user']['edges']
+       
+# Func to get json data by username:
+    def getJsonData(username):
+        base_url = "https://www.instagram.com/"
+        api_code = "/?__a=1"
+        url = base_url+username+api_code
+
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
+
+        response = requests.get(url,headers=headers)
+        try:
+            data = response.json()
+        except:
+            print("no json data found")
+            data = {
+
+            }
+        return data
           
           
-          
+# Func to insert document into Nosql database using DocumentSerializer
+            
+     def insertBrand(jsonData):
+
+        # get post from brand username
+        post = getPost(jsonData)
+
+        # json data for "Brand model"
+        result = {
+        "name": jsonData['graphql']['user']['full_name'],
+        "bio": jsonData['graphql']['user']['biography'],
+        "post": post
+        }
+
+        data_serializer = BrandSerializer(data = result)
+
+        if data_serializer.is_valid():
+
+            # COMMIT to database
+            data_serializer.save()
+
+            return "Model 'Brand' Inserted"
+
+        else:
+            return data_serializer.errors
           
           
        
